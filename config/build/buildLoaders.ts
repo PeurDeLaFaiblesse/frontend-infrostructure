@@ -3,6 +3,17 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import {BuildOptions} from "./types/config";
 
 export default ({isDev}: BuildOptions): RuleSetRule[] => {
+    const svgUrl = {
+        test: /\.svg$/i,
+        type: 'asset',
+        resourceQuery: /url/, // *.svg?url
+    };
+    const svgrLoader = {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
+        use: ['@svgr/webpack'],
+    };
     const cssLoader = {
             test: /\.(sa|sc|c)ss$/i,
             use: [
@@ -29,6 +40,8 @@ export default ({isDev}: BuildOptions): RuleSetRule[] => {
     };
 
     return [
+        svgUrl,
+        svgrLoader,
         typescriptLoader,
         cssLoader,
     ];

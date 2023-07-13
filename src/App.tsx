@@ -1,5 +1,6 @@
 import Counter from "./components/Counter/Counter";
 import './global/cssReset.scss'
+import Success from './assets/success.svg';
 
 const App = () => {
     return (
@@ -7,6 +8,7 @@ const App = () => {
             <Counter/>
             <Counter/>
             <Counter/>
+            <Success />
         </div>
     );
 };
